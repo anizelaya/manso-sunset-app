@@ -15,7 +15,7 @@ except Exception as e:
 # ---------------------------------------------
 
 class DatabaseManager:
-    def __init__(self, spreadsheet_name="MansoSunsetDB"):
+    def __init__(self, spreadsheet_name="Base de Datos - Manso Sunsets"):
         try:
             self.gc = gc
             self.sheet = self.gc.open(spreadsheet_name)
