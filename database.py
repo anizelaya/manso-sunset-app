@@ -3,7 +3,7 @@ import gspread
 import pandas as pd
 from datetime import datetime
 
-# --- CONEXIÓN INTELIGENTE A GOOGLE SHEETS (ACTUALIZADA) ---
+# --- CONEXIÓN INTELIGENTE A GOOGLE SHEETS ---
 try:
     if "gcp_service_account" in st.secrets:
         credentials_dict = dict(st.secrets["gcp_service_account"])
@@ -12,7 +12,7 @@ try:
         gc = gspread.service_account(filename="credentials.json")
 except Exception as e:
     st.error(f"Error al conectar con Google Sheets: {e}")
-# -----------------------------------------------------------
+# ---------------------------------------------
 
 class DatabaseManager:
     def __init__(self, spreadsheet_name="MansoSunsetDB"):
@@ -29,7 +29,6 @@ class DatabaseManager:
         try:
             return self.sheet.worksheet(name)
         except gspread.exceptions.WorksheetNotFound:
-            # Si no existe la pestaña, la crea automáticamente
             return self.sheet.add_worksheet(title=name, rows="100", cols="20")
 
     def get_all_records(self, worksheet_name):
@@ -57,7 +56,7 @@ class DatabaseManager:
         ws = self.get_worksheet(worksheet_name)
         if ws:
             records = ws.get_all_records()
-            for idx, record in enumerate(records, start=2): # Comienza en 2 por el header
+            for idx, record in enumerate(records, start=2):
                 if str(record.get(column_name)) == str(value):
                     return idx, record
         return None, None
