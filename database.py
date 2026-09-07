@@ -37,6 +37,10 @@ class DatabaseManager:
             return ws.get_all_records()
         return []
 
+    def obtener_eventos(self):
+        # Trae los registros de la pestaña 'Eventos' (ajustá el nombre si tu pestaña se llama distinto)
+        return self.get_all_records("Eventos")
+
     def add_row(self, worksheet_name, data):
         ws = self.get_worksheet(worksheet_name)
         if ws:
